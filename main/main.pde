@@ -1,38 +1,32 @@
 import grafica.*;
 
+GPlot plot1;
+
 float kIn = 100;
 float kOut = 10; 
+float nersntEq = 0;
+float time = 0;
 
-void setup() {
-  size(500, 350);
+public void setup() {
+  size(900, 700);
   background(150);
   
-  float nersntEq = 61 * log10(kIn / kOut);
+  nersntEq = 61 * log10(kIn / kOut);
 
-  // Prepare the points for the plot
-  int nPoints = 100;
-  GPointsArray points = new GPointsArray(nPoints);
+  plot1 = new GPlot(this);
+  plot1.setPos(10, 10);
+  plot1.setDim(700, 500);
+  plot1.getTitle().setText("Effet tactile");
+  plot1.getXAxis().getAxisLabel().setText("Déplacement (mm)");
+  plot1.getYAxis().getAxisLabel().setText("Force (N)");
+}
+public void draw() {   
+  // Also possible
+  time = time + 0.0001;
 
-  for (int i = 0; i < nPoints; i++) {
-    points.add(i, nersntEq);
-  }
+  plot1.addPoint(time, nersntEq);
 
-  // Create a new plot and set its position on the screen
-  GPlot plot = new GPlot(this);
-  plot.setPos(25, 25);
-  // or all in one go
-  // GPlot plot = new GPlot(this, 25, 25);
-
-  // Set the plot title and the axis labels
-  plot.setTitleText("K nerst ");
-  plot.getXAxis().setAxisLabelText("x axis");
-  plot.getYAxis().setAxisLabelText("mV");
-
-  // Add the points
-  plot.setPoints(points);
-
-  // Draw it!
-  plot.defaultDraw();
+  plot1.defaultDraw();
 }
 
 float log10 (float x) {
