@@ -15,18 +15,18 @@ public void setup() {
 
   plot1 = new GPlot(this);
   plot1.setPos(10, 10);
-  plot1.setDim(700, 500);
-  plot1.getTitle().setText("Effet tactile");
-  plot1.getXAxis().getAxisLabel().setText("Déplacement (mm)");
-  plot1.getYAxis().getAxisLabel().setText("Force (N)");
+  plot1.setDim(750, 550);
+  plot1.getTitle().setText("K Nernst");
+  plot1.getXAxis().getAxisLabel().setText("T(ms)");
+  plot1.getYAxis().getAxisLabel().setText("mV");
 }
 public void draw() {   
-  // Also possible
-  time = time + 0.0001;
-
+  
+  time = millis();
+  
   plot1.addPoint(time, nersntEq);
-
   plot1.defaultDraw();
+  println(time);
 }
 
 float log10 (float x) {
