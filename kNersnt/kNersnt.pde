@@ -11,8 +11,6 @@ public void setup() {
   size(900, 700);
   background(150);
   
-  nersntEq = 61 * log10(kIn / kOut);
-
   plot1 = new GPlot(this);
   plot1.setPos(10, 10);
   plot1.setDim(750, 550);
@@ -23,12 +21,23 @@ public void setup() {
 public void draw() {   
   
   time = millis();
+  nersntEq = 61 * log10(kIn / kOut);
   
   plot1.addPoint(time, nersntEq);
   plot1.defaultDraw();
-  println(time);
+  
+ }
+void keyPressed() {
+  //Key w increase kout
+  if (key ==  119) {
+    kOut = kOut + 0.01; 
+  } 
+  //Key s decrease kout
+  if (key == 115) {
+    kOut = kOut - 0.01; 
+  }
 }
-
+ 
 float log10 (float x) {
   return(log(x)/log(10));
 }
