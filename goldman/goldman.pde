@@ -36,3 +36,7 @@ public void draw() {
  float log10 (float x) {
   return(log(x)/log(10));
 }
+
+void mouseClicked() {
+  alfa = 1;
+}
