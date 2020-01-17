@@ -38,5 +38,11 @@ public void draw() {
 }
 
 void mouseClicked() {
-  alfa = 1;
+
+  if (alfa < 1){
+    alfa = 1;
+  }
+  if(alfa == 1){
+    alfa = 0.05;
+  }
 }
