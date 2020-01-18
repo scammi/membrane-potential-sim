@@ -41,8 +41,9 @@ void mouseClicked() {
 
   if (alfa < 0.9){
      
-    for (float x = 0.01; x < 4; x = x+0.001){
+    for (float x = 0.1; x < 6; x = x+0.01){
       alfa = 1 / (1 + exp(-x));
+
       println(alfa);
       
     };
