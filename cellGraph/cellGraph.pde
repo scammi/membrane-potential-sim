@@ -1,10 +1,15 @@
 import grafica.*;
 
 GPlot plot1;
+Cell myCell;
+
+float time = 0;
 
 public void setup() {
   size(900, 700);
   background(150);
+  
+  myCell = new Cell();
   
   plot1 = new GPlot(this);
   plot1.setPos(10, 10);
@@ -14,12 +19,15 @@ public void setup() {
   plot1.getYAxis().getAxisLabel().setText("mV");
 }
 
-public void draw() {   
+public void draw() {
   
   time = millis();
-  Vm = (61.5 * log10((Ko + (alfa * No)) / (Ki + (alfa * Ni))) );
   
-  plot1.addPoint(time, Vm);
+  plot1.addPoint(time, myCell.potencialMembrana());
   plot1.defaultDraw();
   
  }
+ 
+void mouseClicked(){
+  myCell.despolarizacion();
+}
