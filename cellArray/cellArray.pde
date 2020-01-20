@@ -27,7 +27,11 @@ public void draw() {
 }
  
 void mouseClicked(){
-  tissue[0].despolarizacion();
+  for(int i = 0; i < tissue.length; i++ )
+  {   
+      tissue[i].despolarizacion();
+
+  }
   
   
 }
