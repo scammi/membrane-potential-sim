@@ -6,22 +6,35 @@ Methods:
 */
 
 class Cell {
-  
-  int Ko = 4;
-  int Ki = 120; 
-  int No = 145;
-  int Ni = 15;
+
   float alfa = .05;
   float Vm = 0;
+  //position
+  int xs;
+  int ys;
+  int rwdidth;
+  int rheight;
 
  Cell(int x, int y, int wdth, int hght){
+   xs = x;
+   ys = y;
+   rwdidth = wdth;
+   rheight = hght;
+   
    rect(x, y, wdth, hght);
+   
  }
  
  public float potencialMembrana(){
-     Vm = (61.5 * log10((Ko + (alfa * No)) / (Ki + (alfa * Ni))) );
-     println(Vm);
-     return Vm;
+       
+    int Ko = 4;
+    int Ki = 120; 
+    int No = 145;
+    int Ni = 15;
+    
+    Vm = (61.5 * log10((Ko + (alfa * No)) / (Ki + (alfa * Ni))) );
+    println(Vm);
+    return Vm;
 
  }
  
@@ -31,12 +44,20 @@ class Cell {
      
     for (float x = 0.01; x < 4; x = x+0.001){
       alfa = 1 / (1 + exp(-x));
+      fill(255,0,0);
+      rect(xs, ys, rwdidth, rheight);
+
       println(alfa);
+      
       
     };
   }
    else {
     alfa = 0.05;
+    
+      fill(255);
+      rect(xs, ys, rwdidth, rheight);
+
   }
  
  }
