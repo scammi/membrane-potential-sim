@@ -23,6 +23,11 @@ public void setup() {
 
 public void draw() {
   
+ for(int i = 0; i < tissue.length; i++ )
+  {   
+    tissue[i].display();
+  }
+  
   
 }
  

@@ -10,19 +10,21 @@ class Cell {
   float alfa = .05;
   float Vm = 0;
   //position
-  int xs;
-  int ys;
-  int rwdidth;
-  int rheight;
+  int x;
+  int y;
+  int w;
+  int h;
 
- Cell(int x, int y, int wdth, int hght){
-   xs = x;
-   ys = y;
-   rwdidth = wdth;
-   rheight = hght;
-   
-   rect(x, y, wdth, hght);
-   
+ Cell(int tempX, int tempY, int tempW, int tempH){
+   x = tempX;
+   y = tempY;
+   w = tempW;
+   h = tempH;
+ }
+ 
+ public void display(){
+    rect(x, y, w, h); 
+
  }
  
  public float potencialMembrana(){
@@ -44,20 +46,16 @@ class Cell {
      
     for (float x = 0.01; x < 4; x = x+0.001){
       alfa = 1 / (1 + exp(-x));
+      
       fill(255,0,0);
-      rect(xs, ys, rwdidth, rheight);
-
-      println(alfa);
-      
-      
+      rect(x, y, w, h);
     };
   }
    else {
     alfa = 0.05;
     
       fill(255);
-      rect(xs, ys, rwdidth, rheight);
-
+      rect(x, y, w, h);
   }
  
  }
