@@ -1,5 +1,4 @@
 Cell myCell;
-
 Cell[] tissue;
 
 float time = 0;
@@ -7,7 +6,8 @@ float time = 0;
 public void setup() {
   size(600, 400);
   background(150);
-  
+
+
   tissue = new Cell[5];
   
   int xPosition = width/2;

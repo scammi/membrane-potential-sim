@@ -1,6 +1,7 @@
 import lord_of_galaxy.timing_utils.*;
 
 Stopwatch s;//Declare
+int time;
 
 void setup(){
   size(640, 360);
@@ -13,15 +14,16 @@ void setup(){
 } 
 
 void draw(){
+   time = millis();
 
   rect(0,0,50,50);
 
-  if(s.second() % 2 == 0)
+  if((time/2000) % 2 == 0)
   {
     fill(255,0,0);
     rect(0,0,50,50);
 
-    println(s.second());
+    println(time);
   }
   else
   {

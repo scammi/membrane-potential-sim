@@ -1,11 +1,6 @@
-/*
-Cell class
-Methods:
-  vm
-  deploraize
-*/
 
 class Cell {
+  Stopwatch s;//Declare
 
   float alfa = .05;
   float Vm = 0;
