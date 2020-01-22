@@ -1,34 +1,34 @@
-import lord_of_galaxy.timing_utils.*;
+import grafica.*;
 
-Stopwatch s;//Declare
-int time;
+GPlot plot1;
+Cell myCell;
 
-void setup(){
-  size(640, 360);
+int time = 0;
+
+public void setup() {
+  size(900, 700);
+  background(150);
   
-  //Creating a stopwatch to keep time
-  s = new Stopwatch(this);
+  myCell = new Cell();
   
-  //Start the stopwatch
-  s.start();
-} 
-
-void draw(){
-   time = millis();
-
-  rect(0,0,50,50);
-
-  if((time/2000) % 2 == 0)
-  {
-    fill(255,0,0);
-    rect(0,0,50,50);
-
-    println(time);
-  }
-  else
-  {
-    fill(0,0,255);
-    rect(0,0,50,50);
-  }
-  
+  plot1 = new GPlot(this);
+  plot1.setPos(10, 10);
+  plot1.setDim(750, 550);
+  plot1.getTitle().setText("Vm");
+  plot1.getXAxis().getAxisLabel().setText("T(ms)");
+  plot1.getYAxis().getAxisLabel().setText("mV");
 }
+
+public void draw() {
+  
+  time = millis();
+  
+  plot1.addPoint(time, myCell.potencialMembrana());
+  plot1.defaultDraw();
+  println(time);
+  if((time/2000000) % 2 == 0)
+  {
+      myCell.despolarizacion();
+
+  }
+ }
