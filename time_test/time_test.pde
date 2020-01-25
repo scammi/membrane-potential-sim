@@ -1,15 +1,16 @@
 import grafica.*;
 
 GPlot plot1;
-Cell myCell;
+AutoCell myCell;
 
 int time = 0;
+int xChart = 0;
 
 public void setup() {
   size(900, 700);
   background(150);
   
-  myCell = new Cell();
+  myCell = new AutoCell();
   
   plot1 = new GPlot(this);
   plot1.setPos(10, 10);
@@ -22,8 +23,9 @@ public void setup() {
 public void draw() {
   
   time = second();
-  
-  plot1.addPoint(time, myCell.potencialMembrana());
+  xChart = millis();
+    
+  plot1.addPoint(xChart, myCell.potencialMembrana());
   plot1.defaultDraw();
   println(time);
   
