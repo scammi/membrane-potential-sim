@@ -19,12 +19,11 @@ class Cell {
      Vm = (61.5 * log10((Ko + (alfa * No)) / (Ki + (alfa * Ni))) );
      
      return Vm;
-
  }
  
- public void despolarizacion(){
+ public void despolarizacion(int counter){
    
-   if (alfa < 0.9){
+   if (alfa < 0.9 && counter % 5 == 0){
      
     for (float x = 0.01; x < 4; x = x+0.001){
       alfa = 1 / (1 + exp(-x));

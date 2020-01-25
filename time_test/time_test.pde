@@ -21,14 +21,13 @@ public void setup() {
 
 public void draw() {
   
-  time = millis();
+  time = second();
   
   plot1.addPoint(time, myCell.potencialMembrana());
   plot1.defaultDraw();
   println(time);
-  if((time/2000000) % 2 == 0)
-  {
-      myCell.despolarizacion();
+  
+  myCell.despolarizacion(time);
 
-  }
+  
  }
