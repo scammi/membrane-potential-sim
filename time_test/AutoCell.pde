@@ -1,10 +1,3 @@
-/*
-Cell class
-Methods:
-  vm
-  deploraize
-*/
-
 class AutoCell extends Cell {
 
   public void despolarizacion(int counter){
