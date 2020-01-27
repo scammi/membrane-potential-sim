@@ -8,17 +8,17 @@ int time = 0;
 public void setup() {
   size(600, 400);
   background(150);
-  time = second();
   
   int xPosition = width/2;
 
   tissue = new Cell[5];
   automaticCell = new AutoCell(xPosition, height/2, 20, 20);
-  automaticCell.despolarizacion(time);
 
+  automaticCell.display();
    
-  for(int i = 0; i < 5; i++){
+  for(int i = 0; i < tissue.length; i++){
     tissue[i] = new Cell(xPosition + 20, height/2, 20, 20);
+    tissue[i].display();
     xPosition = xPosition + 20;
   }
   
@@ -27,22 +27,12 @@ public void setup() {
 }
 
 public void draw() {
-  
- automaticCell.display();
-  
- for(int i = 0; i < tissue.length; i++ )
-  {   
-    tissue[i].display();
-  }
-  
+ time = second();
+ automaticCell.despolarizacion(time);
+
   
 }
  
 void mouseClicked(){
-  for(int i = 0; i < tissue.length; i++ )
-  {   
-      tissue[i].despolarizacion();
-
-  }
-    
+  
 }
