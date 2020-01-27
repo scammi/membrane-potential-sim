@@ -12,8 +12,8 @@ class Cell {
     int Ni = 15;
     
     Vm = (61.5 * log10((Ko + (alfa * No)) / (Ki + (alfa * Ni))) );
-    println(Vm);
     return Vm;
+
 
  }
  

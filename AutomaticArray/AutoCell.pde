@@ -7,13 +7,15 @@ class AutoCell extends Cell {
  }
 
   public void despolarizacion(int counter){
-   
-   if (alfa < 0.9 && counter % 5 == 0){     
+    
+   if (counter % 5 == 0){     
     for (float x = 0.01; x < 4; x = x+0.001){
       alfa = 1 / (1 + exp(-x));     
     };
      fill(255,0,0);
-     rect(x, y, w, h);            
+     rect(x, y, w, h);    
+     
+     println("on");
   }
    else {
     alfa = 0.05;
@@ -21,6 +23,7 @@ class AutoCell extends Cell {
     fill(255);
     rect(x, y, w, h);
 
+    println("off");
   }
  
  }

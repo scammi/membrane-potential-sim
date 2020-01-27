@@ -29,7 +29,6 @@ public void setup() {
 public void draw() {
  time = second();
  automaticCell.despolarizacion(time);
-
   
 }
  

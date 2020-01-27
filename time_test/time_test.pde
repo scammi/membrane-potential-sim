@@ -24,12 +24,11 @@ public void draw() {
   
   time = second();
   xChart = millis();
+  myCell.despolarizacion(time);
     
   plot1.addPoint(xChart, myCell.potencialMembrana());
   plot1.defaultDraw();
-  println(time);
   
-  myCell.despolarizacion(time);
 
   
  }
