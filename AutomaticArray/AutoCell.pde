@@ -14,8 +14,7 @@ class AutoCell extends Cell {
     };
      fill(255,0,0);
      rect(x, y, w, h);    
-     
-     println("on");
+
   }
    else {
     alfa = 0.05;
@@ -23,7 +22,6 @@ class AutoCell extends Cell {
     fill(255);
     rect(x, y, w, h);
 
-    println("off");
   }
  
  }

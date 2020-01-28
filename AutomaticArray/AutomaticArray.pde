@@ -32,6 +32,3 @@ public void draw() {
   
 }
  
-void mouseClicked(){
-  
-}
