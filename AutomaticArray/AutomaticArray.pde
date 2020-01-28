@@ -29,6 +29,10 @@ public void setup() {
 public void draw() {
  time = second();
  automaticCell.despolarizacion(time);
+ 
+   for(int i = 0; i < tissue.length; i++){
+    println(tissue[0].potencialMembrana());
+  }
   
 }
  

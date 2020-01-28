@@ -13,7 +13,9 @@ class AutoCell extends Cell {
       alfa = 1 / (1 + exp(-x));     
     };
      fill(255,0,0);
-     rect(x, y, w, h);    
+     rect(x, y, w, h);
+     
+     conducir();
 
   }
    else {

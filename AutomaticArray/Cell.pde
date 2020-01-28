@@ -9,10 +9,10 @@ class Cell {
   int h;
 
  Cell(int tempX, int tempY, int tempW, int tempH){
-   x = tempX;
-   y = tempY;
-   w = tempW;
-   h = tempH;
+   this.x = tempX;
+   this.y = tempY;
+   this.w = tempW;
+   this.h = tempH;
  }
  
  public void display(){
@@ -27,9 +27,9 @@ class Cell {
     int No = 145;
     int Ni = 15;
     
-    Vm = (61.5 * log10((Ko + (alfa * No)) / (Ki + (alfa * Ni))) );
-    println(Vm);
-    return Vm;
+    this.Vm = (61.5 * log10((Ko + (alfa * No)) / (Ki + (alfa * Ni))) );
+    
+    return this.Vm;
 
  }
  
@@ -40,7 +40,7 @@ class Cell {
     for (float x = 0.01; x < 4; x = x+0.001){
       alfa = 1 / (1 + exp(-x));
       fill(255,0,0);
-      rect(x, y, w, h);            
+      rect(this.x, this.y, this.w, this.h);            
     };
   }
    else {
@@ -50,6 +50,10 @@ class Cell {
       rect(x, y, w, h);
   }
  
+ }
+ 
+ public void conducir(){
+   tissue[0].despolarizacion();
  }
  
   float log10 (float x) {
