@@ -21,8 +21,7 @@ The first action potential is trigger through an automatic cell with a timmer, i
 ![](https://media.giphy.com/media/IeGEyz3wNrq2pzlvIj/giphy.gif)
 
 #### Array of cells
-Every square is a cell object and holds in it's state the result of the GHK equation thats calculated 30 times per second.
-The first cell on the left triggers the rest in a secuential fashion.
+Every square is a cell object and holds in its state the result of the GHK equation that's calculated 30 times per second. The first cell on the left sequentially triggers the rest and one by one are depolarized.
 
 ![](https://media.giphy.com/media/QZ1anIbB4oDKCK22bG/giphy.gif)
 
