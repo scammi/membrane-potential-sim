@@ -1,12 +1,11 @@
-Cell myCell;
 AutoCell automaticCell;
 
 Cell[] tissue;
-int arraySize = 60;
+int arraySize = 100;
 int time = 0;
 
 public void setup() {
-  size(600, 400);
+  size(1000, 400);
   background(150);
   
   int xPosition = 0;
@@ -21,9 +20,7 @@ public void setup() {
     tissue[i].display();
     xPosition = xPosition + 10;
   }
-  
-  //myCell = new Cell(width/2, height/2, 5, 5);
-  
+    
 }
 
 public void draw() {
@@ -34,7 +31,6 @@ public void draw() {
    
    tissue[i].potencialMembrana();
  }
-  
   
 }
  

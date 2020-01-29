@@ -2,23 +2,16 @@ class Cell {
 
   float alfa = .05;
   float Vm = 0;
-  //position
-  int x;
-  int y;
-  int w;
-  int h;
-  
-  int arrayPosition;
-  int arraySize;
+  int x, y, w, h, arrayPosition, arraySize;
 
- Cell(int tempX, int tempY, int tempW, int tempH, int tempArrayPosition, int tempAarraySize){
-  this.x = tempX;
-  this.y = tempY;
-  this.w = tempW;
-  this.h = tempH;
+ Cell(int X, int Y, int W, int H, int arrayPosition, int arraySize){
+  this.x = X;
+  this.y = Y;
+  this.w = W;
+  this.h = H;
   
-  this.arrayPosition = tempArrayPosition;
-  this.arraySize = tempAarraySize;
+  this.arrayPosition = arrayPosition;
+  this.arraySize = arraySize;
  }
  
  public void display(){
@@ -27,7 +20,6 @@ class Cell {
  }
  
  public float potencialMembrana(){
-       
     int Ko = 4;
     int Ki = 120; 
     int No = 145;
@@ -39,24 +31,23 @@ class Cell {
  }
  
  public void despolarizacion(){
-   
-   if (alfa < 0.9){
-     
-      alfa = 1;
+   if (alfa < 0.9)
+   {
+     alfa = 1;
       
-      fill(255,0,0);
-      rect(this.x,this.y,this.w,this.h); 
+     fill(255,0,0);
+     rect(this.x,this.y,this.w,this.h); 
       
-      conducir();
+     conducir();
  
-  }
-   else {
+   }
+   else
+   {
      // alfa = 0.05;
     
      // fill(255);
      // rect(this.x,this.y,this.w,this.h);
-  }
- 
+    }
  }
  
  public void conducir(){
