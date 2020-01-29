@@ -2,7 +2,7 @@ class AutoCell extends Cell {
   
    AutoCell(int tempX, int tempY, int tempW, int tempH){
      
-     super(tempX, tempY, tempW, tempH);
+     super(tempX, tempY, tempW, tempH, 0, 5);
    
  }
 
@@ -15,7 +15,8 @@ class AutoCell extends Cell {
      fill(255,0,0);
      rect(x, y, w, h);    
      
-     println("on");
+     conducir();
+
   }
    else {
     alfa = 0.05;
@@ -23,8 +24,14 @@ class AutoCell extends Cell {
     fill(255);
     rect(x, y, w, h);
 
-    println("off");
   }
  
+ }
+ 
+  public void conducir(){
+   if (tissue[arrayPosition].Vm < -30 && arrayPosition+1 < arraySize)
+   {
+     tissue[arrayPosition].despolarizacion();
+   };
  }
 }

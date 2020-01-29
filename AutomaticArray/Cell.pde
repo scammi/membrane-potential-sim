@@ -7,12 +7,18 @@ class Cell {
   int y;
   int w;
   int h;
+  
+  int arrayPosition;
+  int arraySize;
 
- Cell(int tempX, int tempY, int tempW, int tempH){
-   x = tempX;
-   y = tempY;
-   w = tempW;
-   h = tempH;
+ Cell(int tempX, int tempY, int tempW, int tempH, int tempArrayPosition, int tempAarraySize){
+  this.x = tempX;
+  this.y = tempY;
+  this.w = tempW;
+  this.h = tempH;
+  
+  this.arrayPosition = tempArrayPosition;
+  this.arraySize = tempAarraySize;
  }
  
  public void display(){
@@ -28,7 +34,6 @@ class Cell {
     int Ni = 15;
     
     Vm = (61.5 * log10((Ko + (alfa * No)) / (Ki + (alfa * Ni))) );
-    println(Vm);
     return Vm;
 
  }
@@ -37,19 +42,28 @@ class Cell {
    
    if (alfa < 0.9){
      
-    for (float x = 0.01; x < 4; x = x+0.001){
-      alfa = 1 / (1 + exp(-x));
+      alfa = 1;
+      
       fill(255,0,0);
-      rect(x, y, w, h);            
-    };
+      rect(this.x,this.y,this.w,this.h); 
+      
+      conducir();
+ 
   }
    else {
-    alfa = 0.05;
+     // alfa = 0.05;
     
-      fill(255);
-      rect(x, y, w, h);
+     // fill(255);
+     // rect(this.x,this.y,this.w,this.h);
   }
  
+ }
+ 
+ public void conducir(){
+   if (tissue[arrayPosition].Vm < -30 && arrayPosition+1 < arraySize)
+   {
+     tissue[arrayPosition+1].despolarizacion();
+   };
  }
  
   float log10 (float x) {
