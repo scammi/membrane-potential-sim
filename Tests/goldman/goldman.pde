@@ -51,3 +51,11 @@ void mouseClicked() {
     alfa = 0.05;
   }
 }
+
+void keyPressed() {
+  if (key == UP) {
+  }
+  
+  Ko = Ko + 1;
+
+}
