@@ -55,7 +55,5 @@ void mouseClicked() {
 void keyPressed() {
   if (key == UP) {
   }
-  
   Ko = Ko + 1;
-
 }
