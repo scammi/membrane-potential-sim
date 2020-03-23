@@ -3,10 +3,12 @@
  * @dev see https://github.com/scammi/membrane-potential-sim
  */
  
-//Declaration of AutoCell
-AutoCell automaticCell;
-//Declaration of array of cell's 
 Cell[] tissue;
+
+// cell state
+final String resting = "resting";
+final String open = "open";
+final String inactive = "inactive";
 
 int numberOfCells = 100;
 int time = 0;
@@ -19,34 +21,43 @@ public void setup() {
   int xPosition = 0;
   int yPosition = height/2;
   
-  //Instantiation of Cells
   tissue = new Cell[numberOfCells];
   
-  //Initialization of automatic cell
-  automaticCell = new AutoCell(xPosition, yPosition, 10, 10);
-  automaticCell.display();
-  
-  //Initialization and display of every cell in array
   for(int i = 0; i < tissue.length; i++){
-    tissue[i] = new Cell(xPosition + 10, yPosition, 10, 10, i, numberOfCells);
-    tissue[i].display();
-    //Sets position of next cell to be display
+    if (i == 10)
+      tissue[i] = new AutoCell(xPosition + 10, yPosition, 10, 10, i);
+    else
+      tissue[i] = new Cell(xPosition + 10, yPosition, 10, 10, i);
+    
     xPosition = xPosition + 10;
   }
-    
+  
+
+  thread("updateCells");
 }
 
 public void draw() {
- //Start timer
- time = second();
- automaticCell.despolarizacion(time);
- 
- //Every frame the Vm of every cell is calculated
- for(int i = 0; i < tissue.length; i++)
- {
-   tissue[i].potencialMembrana();
-   println(tissue[i].Vm);
+ for(int i = 0; i < tissue.length; i++){
+   tissue[i].display();
  }
-  
 }
+public void updateCells(){
+  while(true) {
+    for (Cell cell: tissue) {
+      cell.calculateAlpha();
+    }
+    for (Cell cell: tissue) {
+      cell.calculateMembranePotential();
+    }
+    for (Cell cell: tissue) {
+      cell.propagateLoads();
+    }
+    for (Cell cell: tissue) {
+      cell.updateState();
+    }
+    delay(100);
+  }
+}
+
+
  

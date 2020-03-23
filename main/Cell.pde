@@ -1,8 +1,16 @@
 class Cell {
 
- int x, y, w, h, arrayPosition, arraySize;
- float Vm = 0;
+ int x, y, w, h, arrayPosition;
+ float Vm;
+ String state;
+ float loads;
 
+ //variables to calculate membrane potential
+ float alpha = .05;
+ int Ko = 4;
+ int Ki = 120; 
+ int No = 145;
+ int Ni = 15;
 
  /**
  *@dev constructor set position of cell in canvas and in the array
@@ -13,81 +21,80 @@ class Cell {
  *@param arrayPosition > index of cell in the array
  *@param arraySize > lenght of the array
  */
- Cell(int X, int Y, int W, int H, int arrayPosition, int arraySize){
+ Cell(int X, int Y, int W, int H, int arrayPosition){
   this.x = X;
   this.y = Y;
   this.w = W;
   this.h = H;
   
+  this.state = resting;
   this.arrayPosition = arrayPosition;
-  this.arraySize = arraySize;
+  this.Vm = membranePotential();
  }
  
- /**
- *@dev Displays the rect cell on the canvas
- */
  public void display(){
-    rect(x, y, w, h); 
- }
- 
- /**
- *@dev Goldman-Hodgkin-Katz simplified equation, it returns Vm of a cell.
- *@variable alfa = permeabilidadSodio(Na)/permeabilidadPotasio(K)
- */
- float alfa = .05;
- public float potencialMembrana(){
-    int Ko = 4;
-    int Ki = 120; 
-    int No = 145;
-    int Ni = 15;
-    
-    Vm = (61.5 * log10((Ko + (alfa * No)) / (Ki + (alfa * Ni))) );
-    return Vm;
-
- }
- 
- /**
- *@dev Depolarizes the cell, setting alfa = 1, meaning the permeability of Na greater than that of K 
- *it then re-draws the rectangle as red
- *finnaly it triggers the function conducir
- */
- public void despolarizacion(){
-   if (alfa < 0.9)
-   {
-     alfa = 1;
-      
-     fill(255,0,0);
-     rect(this.x,this.y,this.w,this.h); 
-      
-     conducir();
- 
-   }
-   else
-   {
-     // alfa = 0.05;
-    
-     // fill(255);
-     // rect(this.x,this.y,this.w,this.h);
+   rect(x, y, w, h);
+   if (state == resting) {
+      fill(255,0,0);
+    } else if (state == open) {
+      fill(0,255,0);
+    } else if (state == inactive) {
+      fill(0,0,255);
     }
  }
- 
- /**
- *@dev if the cell index + 1 exceeds the array.lenght it stops, prevents calling undefined object
- * if next cell is polarized then it is trigger to depolireze.
- */
- public void conducir(){
-   if (arrayPosition+1 < arraySize)
-   {  
-     if(tissue[arrayPosition+1].Vm < -30)
-     {
-       tissue[arrayPosition+1].despolarizacion();
-     }
-     
-   };
+
+ public float membranePotential(){
+    return (61.5 * log10((Ko + (alpha * No)) / (Ki + (alpha * Ni))) );
  }
  
-  float log10 (float x) {
+  public void calculateAlpha() {
+    if (state == resting) {
+      alpha = alpha + (0.05 - alpha) / 10;
+    } else if (state == open) {
+     alpha = alpha + (5 - alpha) / 50;
+    } else if (state == inactive) {
+      alpha = alpha + (0.05 - alpha) / 50;
+    }
+    //println("Cell:" + arrayPosition + " alpha;" + alpha);
+  }
+  public void calculateMembranePotential() {
+    Vm = membranePotential();
+    //println("Cell:" + arrayPosition + " Vm;" + Vm);
+  }
+  private float log10 (float x) {
    return(log(x)/log(10));
   }
-
+  public void propagateLoads() {
+    int previousPos = arrayPosition - 1;
+    int posteriorPos = arrayPosition + 1;
+    
+    if (previousPos < 1) {
+      loads = 0.7 * tissue[posteriorPos].Vm + 0.3 * tissue[arrayPosition].Vm;
+    } else if (posteriorPos >= tissue.length) {
+      loads = 0.7 * tissue[previousPos].Vm + 0.3 * tissue[arrayPosition].Vm;
+    } else {
+      loads = 0.25 * tissue[previousPos].Vm + 0.5 * tissue[arrayPosition].Vm + 0.25 * tissue[posteriorPos].Vm;
+    }
+    //println("Cell:" + arrayPosition + " loads;" + loads);
+  }
+  public void updateState() {
+    if (arrayPosition == 0) {
+      println("Cell:" + arrayPosition + " Vm;" + Vm + " loads;" + loads);
+    }
+    if (state == resting) {
+      //println("Cell:" + arrayPosition + " Vm;" + Vm + " loads;" + loads);
+      if (loads > -50) { //<>//
+        println("opening channel");
+        state = open;
+      }
+    } else if (state == open) {
+      if (loads > 10) {
+        println("inactiving channel");
+        state = inactive;
+      }
+    } else if (state == inactive) {
+      if (loads < -55)
+        state = resting;
+    }  
+  }
 }
