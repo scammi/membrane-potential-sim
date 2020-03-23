@@ -31,7 +31,6 @@ public void setup() {
     
     xPosition = xPosition + 10;
   }
-  
 
   thread("updateCells");
 }
@@ -41,18 +40,13 @@ public void draw() {
    tissue[i].display();
  }
 }
+
 public void updateCells(){
   while(true) {
     for (Cell cell: tissue) {
       cell.calculateAlpha();
-    }
-    for (Cell cell: tissue) {
       cell.calculateMembranePotential();
-    }
-    for (Cell cell: tissue) {
       cell.propagateLoads();
-    }
-    for (Cell cell: tissue) {
       cell.updateState();
     }
     delay(100);
