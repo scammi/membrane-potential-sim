@@ -7,10 +7,9 @@ class AutoCell extends Cell {
     if (state == resting) {
       alpha = alpha + 0.05;
     } else if (state == open) {
-     alpha = alpha + (5 - alpha) / 50;
+        alpha = alpha + (5 - alpha) / 50;
     } else if (state == inactive) {
-      alpha = alpha + (0.05 - alpha) / 50;
+        alpha = alpha + (0.05 - alpha) / 50;
     }
-    //println("Cell:" + arrayPosition + " alpha;" + alpha);
  }
 }

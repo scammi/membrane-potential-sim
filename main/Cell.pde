@@ -34,12 +34,13 @@ class Cell {
  
  public void display(){
    rect(x, y, w, h);
+   
    if (state == resting) {
-      fill(255,0,0);
+     fill(255,0,0); //red
     } else if (state == open) {
-      fill(0,255,0);
+        fill(0,255,0); //green
     } else if (state == inactive) {
-      fill(0,0,255);
+        fill(0,0,255); //blue
     }
  }
 
@@ -47,54 +48,60 @@ class Cell {
     return (61.5 * log10((Ko + (alpha * No)) / (Ki + (alpha * Ni))) );
  }
  
-  public void calculateAlpha() {
+ public void calculateAlpha() {
     if (state == resting) {
       alpha = alpha + (0.05 - alpha) / 10;
     } else if (state == open) {
-     alpha = alpha + (5 - alpha) / 50;
+        alpha = alpha + (5 - alpha) / 50;
     } else if (state == inactive) {
-      alpha = alpha + (0.05 - alpha) / 50;
+        alpha = alpha + (0.05 - alpha) / 50;
     }
-    //println("Cell:" + arrayPosition + " alpha;" + alpha);
-  }
-  public void calculateMembranePotential() {
+ }
+  
+ public void calculateMembranePotential() {
     Vm = membranePotential();
-    //println("Cell:" + arrayPosition + " Vm;" + Vm);
-  }
-  private float log10 (float x) {
+ }
+  
+ private float log10 (float x) {
    return(log(x)/log(10));
-  }
-  public void propagateLoads() {
+ }
+  
+ public void propagateLoads() {
     int previousPos = arrayPosition - 1;
     int posteriorPos = arrayPosition + 1;
     
     if (previousPos < 1) {
       loads = 0.7 * tissue[posteriorPos].Vm + 0.3 * tissue[arrayPosition].Vm;
     } else if (posteriorPos >= tissue.length) {
-      loads = 0.7 * tissue[previousPos].Vm + 0.3 * tissue[arrayPosition].Vm;
+        loads = 0.7 * tissue[previousPos].Vm + 0.3 * tissue[arrayPosition].Vm;
     } else {
-      loads = 0.25 * tissue[previousPos].Vm + 0.5 * tissue[arrayPosition].Vm + 0.25 * tissue[posteriorPos].Vm;
+        loads = 0.25 * tissue[previousPos].Vm + 0.5 * tissue[arrayPosition].Vm + 0.25 * tissue[posteriorPos].Vm;
     }
-    //println("Cell:" + arrayPosition + " loads;" + loads);
+ }
+  
+ public void updateState() {
+   
+  if (arrayPosition == 0) {
+    println("Cell:" + arrayPosition + " Vm;" + Vm + " loads;" + loads);
   }
-  public void updateState() {
-    if (arrayPosition == 0) {
-      println("Cell:" + arrayPosition + " Vm;" + Vm + " loads;" + loads);
+  
+  if (state == resting) {
+    if (loads > -50) { //<>//
+      println("opening channel");
+      state = open;
     }
-    if (state == resting) {
-      //println("Cell:" + arrayPosition + " Vm;" + Vm + " loads;" + loads);
-      if (loads > -50) { //<>//
-        println("opening channel");
-        state = open;
-      }
-    } else if (state == open) {
-      if (loads > 10) {
-        println("inactiving channel");
-        state = inactive;
-      }
-    } else if (state == inactive) {
-      if (loads < -55)
-        state = resting;
+  }
+  else if (state == open) {
+    if (loads > 10) {
+      println("inactiving channel");
+      state = inactive;
+    }
+  } 
+  else if (state == inactive){
+    if (loads < -55){
+    state = resting;
     }  
   }
+ }
+ 
 }
