@@ -15,4 +15,5 @@ class AutoCell extends Cell {
       alpha = alpha + (0.05 - alpha) / 50;
     }
  }
+ 
 }

@@ -2,7 +2,7 @@
  * @title Membrane potential simulator
  * @dev see https://github.com/scammi/membrane-potential-sim
  */
- 
+
 Cell[] tissue;
 
 // cell state
@@ -16,19 +16,19 @@ int time = 0;
 public void setup() {
   size(1000, 400);
   background(150);
-  
+
   //Position where cells start being draw
   int xPosition = 0;
   int yPosition = height/2;
-  
+
   tissue = new Cell[numberOfCells];
-  
+
   for(int i = 0; i < tissue.length; i++){
     if (i == 10)
       tissue[i] = new AutoCell(xPosition + 10, yPosition, 10, 10, i);
     else
       tissue[i] = new Cell(xPosition + 10, yPosition, 10, 10, i);
-    
+
     xPosition = xPosition + 10;
   }
 
@@ -43,15 +43,18 @@ public void draw() {
 
 public void updateCells(){
   while(true) {
-    for (Cell cell: tissue) {
-      cell.calculateAlpha();
-      cell.calculateMembranePotential();
-      cell.propagateLoads();
-      cell.updateState();
-    }
+  for (Cell cell: tissue) {
+    cell.calculateAlpha();
+  }
+  for (Cell cell: tissue) {
+    cell.calculateMembranePotential();
+  }
+  for (Cell cell: tissue) {
+    cell.calculateCharge();
+  }
+  for (Cell cell: tissue) {
+    cell.updateState();
+  }
     delay(100);
   }
 }
-
-
- 
