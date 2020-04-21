@@ -3,43 +3,41 @@
  * @dev see https://github.com/scammi/membrane-potential-sim
  */
 
-Cell[] tissue;
+Cell[][] tissue;
 
 // cell state
 final String resting = "resting";
 final String open = "open";
 final String inactive = "inactive";
 
-int numberOfCells = 100;
+int cols = 50;
+int rows = 50;
 int time = 0;
 
 public void setup() {
   size(1000, 400);
   background(150);
 
-  //Position where cells start being draw
-  int xPosition = 0;
-  int yPosition = height/2;
+  tissue = new Cell[cols][rows];
 
-  tissue = new Cell[numberOfCells];
-
-  for(int i = 0; i < tissue.length; i++){
-    if (i == 10)
-      tissue[i] = new AutoCell(xPosition + 10, yPosition, 10, 10, i);
-    else
-      tissue[i] = new Cell(xPosition + 10, yPosition, 10, 10, i);
-
-    xPosition = xPosition + 10;
+  //TODO: ADD AUTOCELL
+  for (int i = 0; i < cols; i++) {
+      for (int j = 0; j < rows; j++) {
+      tissue[i][j] = new Cell(i*10, j*10, 10, 10, i);
+    }
   }
 
 }
 
 public void draw() {
- for(int i = 0; i < tissue.length; i++){
-   tissue[i].display();
-   tissue[i].calculateCharge();
-   tissue[i].calculateAlpha();
-   tissue[i].calculateMembranePotential();
+
+ for (int w = 0; w < cols; w++) {
+   for (int p = 0; p < rows; p++) {
+     tissue[w][p].display();
+   }
+   // tissue[i].calculateCharge();
+   // tissue[i].calculateAlpha();
+   // tissue[i].calculateMembranePotential();
 
  }
 }

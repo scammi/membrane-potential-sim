@@ -19,7 +19,6 @@ class Cell {
  *@param w > width of cell
  *@param h > height of cell
  *@param arrayPosition > index of cell in the array
- *@param arraySize > lenght of the array
  */
  Cell(int X, int Y, int W, int H, int arrayPosition){
   this.x = X;
@@ -67,24 +66,25 @@ class Cell {
  }
 
 
- //Calculates cell charge influenced by the surrounding cells
- public void calculateCharge() {
-   int previousPosition = arrayPosition - 1;
-   int posteriorPosition = arrayPosition + 1;
-
-   if (previousPosition < 0) {
-     charge = 0.7 * tissue[posteriorPosition].Vm + 0.3 * tissue[arrayPosition].Vm;
-     updateState();
-   }
-   else if (posteriorPosition >= tissue.length) {
-     charge = 0.7 * tissue[previousPosition].Vm + 0.3 * tissue[arrayPosition].Vm;
-     updateState();
-   }
-   else {
-     charge = 0.25 * tissue[previousPosition].Vm + 0.5 * tissue[arrayPosition].Vm + 0.25 * tissue[posteriorPosition].Vm;
-     updateState();
-   }
- }
+ // Calculates cell charge influenced by the surrounding cells
+ // public void calculateCharge() {
+ //   int previousPosition = arrayPosition - 1;
+ //   int posteriorPosition = arrayPosition + 1;
+ //
+ //   if (previousPosition < 0) {
+ //     charge = 0.3 * tissue[posteriorPosition].Vm + 0.7 * tissue[arrayPosition].Vm;
+ //     updateState();
+ //   }
+ //   else if (posteriorPosition >= tissue.length) {
+ //     charge = 0.3 * tissue[previousPosition].Vm + 0.7 * tissue[arrayPosition].Vm;
+ //     updateState();
+ //   }
+ //   else {
+ //     charge = 0.25 * tissue[previousPosition].Vm + 0.5 * tissue[arrayPosition].Vm + 0.25 * tissue[posteriorPosition].Vm;
+ //     updateState();
+ //   }
+ //   println(charge);
+ // }
 
  public void updateState() {
   if (state == resting && charge > -50) {
