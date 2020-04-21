@@ -32,29 +32,14 @@ public void setup() {
     xPosition = xPosition + 10;
   }
 
-  thread("updateCells");
 }
 
 public void draw() {
  for(int i = 0; i < tissue.length; i++){
    tissue[i].display();
- }
-}
+   tissue[i].calculateCharge();
+   tissue[i].calculateAlpha();
+   tissue[i].calculateMembranePotential();
 
-public void updateCells(){
-  while(true) {
-  for (Cell cell: tissue) {
-    cell.calculateAlpha();
-  }
-  for (Cell cell: tissue) {
-    cell.calculateMembranePotential();
-  }
-  for (Cell cell: tissue) {
-    cell.calculateCharge();
-  }
-  for (Cell cell: tissue) {
-    cell.updateState();
-  }
-    delay(100);
-  }
+ }
 }

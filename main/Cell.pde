@@ -3,7 +3,7 @@ class Cell {
  int x, y, w, h, arrayPosition;
  float Vm;
  String state;
- float loads;
+ float charge;
 
  //variables to calculate membrane potential
  float alpha = .05;
@@ -72,27 +72,28 @@ class Cell {
    int previousPosition = arrayPosition - 1;
    int posteriorPosition = arrayPosition + 1;
 
-   if (previousPosition < 1) {
-     loads = 0.7 * tissue[posteriorPosition].Vm + 0.3 * tissue[arrayPosition].Vm;
+   if (previousPosition < 0) {
+     charge = 0.7 * tissue[posteriorPosition].Vm + 0.3 * tissue[arrayPosition].Vm;
+     updateState();
    }
    else if (posteriorPosition >= tissue.length) {
-     loads = 0.7 * tissue[previousPosition].Vm + 0.3 * tissue[arrayPosition].Vm;
+     charge = 0.7 * tissue[previousPosition].Vm + 0.3 * tissue[arrayPosition].Vm;
+     updateState();
    }
    else {
-     loads = 0.25 * tissue[previousPosition].Vm + 0.5 * tissue[arrayPosition].Vm + 0.25 * tissue[posteriorPosition].Vm;
+     charge = 0.25 * tissue[previousPosition].Vm + 0.5 * tissue[arrayPosition].Vm + 0.25 * tissue[posteriorPosition].Vm;
+     updateState();
    }
  }
 
  public void updateState() {
-  if (state == resting && loads > -50) {
-    println("opening channel");
+  if (state == resting && charge > -50) {
     state = open;
   }
-  else if (state == open && loads > 10) {
-    println("inactiving channel");
+  else if (state == open && charge > 10) {
     state = inactive;
   }
-  else if (state == inactive && loads < -55) {
+  else if (state == inactive && charge < -55) {
     state = resting;
   }
  }
