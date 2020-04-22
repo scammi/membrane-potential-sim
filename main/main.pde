@@ -23,7 +23,7 @@ public void setup() {
   //TODO: ADD AUTOCELL
   for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
-      tissue[i][j] = new Cell(i*10, j*10, 10, 10, i);
+      tissue[i][j] = new Cell(i*10, j*10, 10, 10, i, j);
     }
   }
 

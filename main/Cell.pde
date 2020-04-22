@@ -1,6 +1,6 @@
 class Cell {
 
- int x, y, w, h, arrayPosition;
+ int x, y, w, h, colPosition, rowPosition;
  float Vm;
  String state;
  float charge;
@@ -20,14 +20,16 @@ class Cell {
  *@param h > height of cell
  *@param arrayPosition > index of cell in the array
  */
- Cell(int X, int Y, int W, int H, int arrayPosition){
+ Cell(int X, int Y, int W, int H, int tempColPosition, int tempRowPosition){
   this.x = X;
   this.y = Y;
   this.w = W;
   this.h = H;
 
+  this.colPosition = tempColPosition;
+  this.rowPosition = tempRowPosition;
+
   this.state = resting;
-  this.arrayPosition = arrayPosition;
   this.Vm = membranePotential();
  }
 
@@ -43,6 +45,7 @@ class Cell {
    else if (state == inactive) {
      fill(0,0,255); //blue
    }
+
  }
 
  public float membranePotential(){
@@ -80,10 +83,10 @@ class Cell {
  //     updateState();
  //   }
  //   else {
- //     charge = 0.25 * tissue[previousPosition].Vm + 0.5 * tissue[arrayPosition].Vm + 0.25 * tissue[posteriorPosition].Vm;
+ //     charge = 0.2 * tissue[][].Vm + 0.2 * tissue[][].Vm + 0.2 * tissue[][].Vm;
+ //
  //     updateState();
  //   }
- //   println(charge);
  // }
 
  public void updateState() {
