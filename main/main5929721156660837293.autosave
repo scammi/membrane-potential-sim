@@ -1,4 +1,4 @@
-/**
++++/**
  * @title Membrane potential simulator
  * @dev see https://github.com/scammi/membrane-potential-sim
  */
@@ -11,7 +11,7 @@ final String open = "open";
 final String inactive = "inactive";
 
 int cols = 50;
-int rows = 20;
+int rows = 50;
 int time = 0;
 
 public void setup() {

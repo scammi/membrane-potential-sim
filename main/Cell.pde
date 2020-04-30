@@ -70,24 +70,37 @@ class Cell {
 
 
  // Calculates cell charge influenced by the surrounding cells
- // public void calculateCharge() {
- //   int previousPosition = arrayPosition - 1;
- //   int posteriorPosition = arrayPosition + 1;
- //
- //   if (previousPosition < 0) {
- //     charge = 0.3 * tissue[posteriorPosition].Vm + 0.7 * tissue[arrayPosition].Vm;
- //     updateState();
- //   }
- //   else if (posteriorPosition >= tissue.length) {
- //     charge = 0.3 * tissue[previousPosition].Vm + 0.7 * tissue[arrayPosition].Vm;
- //     updateState();
- //   }
- //   else {
- //     charge = 0.2 * tissue[][].Vm + 0.2 * tissue[][].Vm + 0.2 * tissue[][].Vm;
- //
- //     updateState();
- //   }
- // }
+ public void calculateCharge() {
+
+   int preCol = colPosition - 1;
+   int posCol = colPosition + 1;
+   int preRow = rowPosition - 1;
+   int posRow = rowPosition + 1;
+
+   if (preCol < 0) {
+     charge = 0.3 * tissue[posteriorPosition].Vm + 0.7 * tissue[arrayPosition].Vm;
+     updateState();
+   }
+   else if (posteriorPosition >= tissue.length) {
+     charge = 0.3 * tissue[previousPosition].Vm + 0.7 * tissue[arrayPosition].Vm;
+     updateState();
+   }
+   else {
+     charge =
+     //centro
+     (0.2 * tissue[colPosition][rowPosition].Vm) +
+     //arriba
+     (0.2 * tissue[colPosition][preCol].Vm) +
+     //abajo
+     (0.2 * tissue[colPosition][posRow].Vm) +
+     //derecha
+     (0.2 * issue[rowPosition][posCol].Vm) +
+     //izquierda
+     (0.2 * tissue[rowPosition][preCol].Vm);
+
+     updateState();
+   }
+ }
 
  public void updateState() {
   if (state == resting && charge > -50) {
