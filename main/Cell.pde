@@ -70,23 +70,17 @@ class Cell {
 
 
  // Calculates cell charge influenced by the surrounding cells
- public void calculateCharge() {
+  public void calculateCharge(){
 
-   int preCol = colPosition - 1;
-   int posCol = colPosition + 1;
-   int preRow = rowPosition - 1;
-   int posRow = rowPosition + 1;
+    if (x < 1 || x >= cols || y < 1 || y >= rows) 
+        return; 
 
-   if (preCol < 0) {
-     charge = 0.3 * tissue[posteriorPosition].Vm + 0.7 * tissue[arrayPosition].Vm;
-     updateState();
-   }
-   else if (posteriorPosition >= tissue.length) {
-     charge = 0.3 * tissue[previousPosition].Vm + 0.7 * tissue[arrayPosition].Vm;
-     updateState();
-   }
-   else {
-     charge =
+    int preCol = colPosition - 1;
+    int posCol = colPosition + 1;
+    int preRow = rowPosition - 1;
+    int posRow = rowPosition + 1;
+   
+    charge =
      //centro
      (0.2 * tissue[colPosition][rowPosition].Vm) +
      //arriba
@@ -94,13 +88,13 @@ class Cell {
      //abajo
      (0.2 * tissue[colPosition][posRow].Vm) +
      //derecha
-     (0.2 * issue[rowPosition][posCol].Vm) +
+     (0.2 * tissue[rowPosition][posCol].Vm) +
      //izquierda
      (0.2 * tissue[rowPosition][preCol].Vm);
 
      updateState();
-   }
- }
+
+  }
 
  public void updateState() {
   if (state == resting && charge > -50) {
