@@ -61,7 +61,7 @@ class Cell {
      alpha = alpha + (0.05 - alpha) / 10;
    }
    else if (state == open) {
-     alpha = alpha + (5 - alpha) / 50;
+     alpha = alpha + (50 - alpha) / 50;
    }
    else if (state == inactive) {
      alpha = alpha + (0.05 - alpha) / 50;
@@ -72,25 +72,26 @@ class Cell {
  // Calculates cell charge influenced by the surrounding cells
   public void calculateCharge(){
 
-    if (x < 1 || x >= cols || y < 1 || y >= rows) 
+    if (colPosition < 1 || colPosition >= (cols-1) || rowPosition < 1 || rowPosition >= (rows-1)) 
         return; 
 
     int preCol = colPosition - 1;
-    int posCol = colPosition + 1;
+    int postCol = colPosition + 1;
     int preRow = rowPosition - 1;
-    int posRow = rowPosition + 1;
-   
-    charge =
+    int postRow = rowPosition + 1;
+    // println(rowPosition, colPosition);
+
+    this.charge =
      //centro
-     (0.2 * tissue[colPosition][rowPosition].Vm) +
+     (0.4 * tissue[colPosition][rowPosition].Vm) +
      //arriba
-     (0.2 * tissue[colPosition][preCol].Vm) +
+     (0.15 * tissue[colPosition][preRow].Vm) +
      //abajo
-     (0.2 * tissue[colPosition][posRow].Vm) +
+     (0.15 * tissue[colPosition][postRow].Vm) +
      //derecha
-     (0.2 * tissue[rowPosition][posCol].Vm) +
+     (0.15 * tissue[preCol][rowPosition].Vm) +
      //izquierda
-     (0.2 * tissue[rowPosition][preCol].Vm);
+     (0.15 * tissue[postCol][rowPosition].Vm);
 
      updateState();
 

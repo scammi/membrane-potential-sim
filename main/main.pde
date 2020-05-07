@@ -11,11 +11,11 @@ final String open = "open";
 final String inactive = "inactive";
 
 int cols = 50;
-int rows = 20;
+int rows = 50;
 int time = 0;
 
 public void setup() {
-  size(1000, 400);
+  size(500, 500);
   background(150);
 
   tissue = new Cell[cols][rows];
@@ -23,7 +23,7 @@ public void setup() {
   //TODO: ADD AUTOCELL
   for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
-        if(i == 1 && j ==1){
+        if(i == 20 && j == 20){
            tissue[i][j] = new AutoCell(i*10, j*10, 10, 10, i, j);
         }else{
           tissue[i][j] = new Cell(i*10, j*10, 10, 10, i, j);
