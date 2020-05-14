@@ -30,7 +30,7 @@ class Cell {
   this.rowPosition = tempRowPosition;
 
   this.state = resting;
-  this.Vm = membranePotential();
+  calculateMembranePotential();
  }
 
  public void display(){
@@ -48,12 +48,8 @@ class Cell {
 
  }
 
- public float membranePotential(){
-   return (61.5 * log10((Ko + (alpha * No)) / (Ki + (alpha * Ni))) );
- }
-
  public void calculateMembranePotential() {
-   Vm = membranePotential();
+   this.Vm =  (61.5 * log10((Ko + (alpha * No)) / (Ki + (alpha * Ni))) );
  }
 
  public void calculateAlpha() {
@@ -79,7 +75,6 @@ class Cell {
     int postCol = colPosition + 1;
     int preRow = rowPosition - 1;
     int postRow = rowPosition + 1;
-    // println(rowPosition, colPosition);
 
     this.charge =
      //centro

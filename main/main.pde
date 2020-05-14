@@ -10,8 +10,10 @@ final String resting = "resting";
 final String open = "open";
 final String inactive = "inactive";
 
-int cols = 200;
-int rows = 200;
+int cols = 100;
+int rows = 100;
+int ch = 10; //cell_height
+int cw = 10; //cell_width
 int time = 0;
 
 public void setup() {
@@ -22,14 +24,19 @@ public void setup() {
 
   //TODO: ADD AUTOCELL
   for (int i = 0; i < cols; i++) {
+
       for (int j = 0; j < rows; j++) {
+
         if((i == 25 && j == 25) || (i == 75 && j == 75)){
-           tissue[i][j] = new AutoCell(i*2, j*2, 2, 2, i, j);
+           tissue[i][j] = new AutoCell(i*cw, j*ch, cw, ch, i, j);
+
         } else if ((i > 30 && i< 35) && (j>30 && j< 35)){
-           tissue[i][j] = new NullCell(i*2, j*2, 2, 2, i, j);
+           tissue[i][j] = new NullCell(i*cw, j*ch, cw, ch, i, j);
+
         }
         else{
-          tissue[i][j] = new Cell(i*2, j*2, 2, 2, i, j);
+          tissue[i][j] = new Cell(i*cw, j*ch, cw, ch, i, j);
+
         }
     }
   }
@@ -45,10 +52,7 @@ public void draw() {
      tissue[w][p].calculateCharge();
      tissue[w][p].calculateAlpha();
 
-
    }
-   // tissue[i].calculateCharge();
-   // tissue[i].calculateAlpha();
 
  }
 }
