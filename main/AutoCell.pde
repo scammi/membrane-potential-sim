@@ -14,7 +14,27 @@ class AutoCell extends Cell {
     else if (state == inactive) {
       alpha = alpha + (0.05 - alpha) / 50;
     }
+  println(this.state, this.Vm, this.alpha);
  }
 
+ //Calculates cell charge influenced by the surrounding cells
+ public void calculateCharge(){
+   this.charge = (tissue[colPosition][rowPosition].Vm);
+    
+    updateState();
 
+ }
+
+ 
+ public void updateState() {
+  if (state == resting && charge > -40) {
+    state = open;
+  }
+  else if (state == open && charge > 35) {
+    state = inactive;
+  }
+  else if ((state == inactive) && charge < -55) {
+    state = resting;
+  }
+ }
 }

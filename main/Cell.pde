@@ -66,32 +66,33 @@ class Cell {
 
 
  // Calculates cell charge influenced by the surrounding cells
-  public void calculateCharge(){
+ public void calculateCharge(){
 
-    if (colPosition < 1 || colPosition >= (cols-1) || rowPosition < 1 || rowPosition >= (rows-1)) 
-        return; 
+  if (colPosition < 1 || colPosition >= (cols-1) || rowPosition < 1 || rowPosition >= (rows-1)) 
+      return; 
 
-    int preCol = colPosition - 1;
-    int postCol = colPosition + 1;
-    int preRow = rowPosition - 1;
-    int postRow = rowPosition + 1;
+  int preCol = colPosition - 1;
+  int postCol = colPosition + 1;
+  int preRow = rowPosition - 1;
+  int postRow = rowPosition + 1;
 
-    this.charge =
-     //centro
-     (0.4 * tissue[colPosition][rowPosition].Vm) +
-     //arriba
-     (0.15 * tissue[colPosition][preRow].Vm) +
-     //abajo
-     (0.15 * tissue[colPosition][postRow].Vm) +
-     //derecha
-     (0.15 * tissue[preCol][rowPosition].Vm) +
-     //izquierda
-     (0.15 * tissue[postCol][rowPosition].Vm);
+  this.charge =
+    //centro
+    (0.4 * tissue[colPosition][rowPosition].Vm) +
+    //arriba
+    (0.15 * tissue[colPosition][preRow].Vm) +
+    //abajo
+    (0.15 * tissue[colPosition][postRow].Vm) +
+    //derecha
+    (0.15 * tissue[preCol][rowPosition].Vm) +
+    //izquierda
+    (0.15 * tissue[postCol][rowPosition].Vm);
+    
+    updateState();
 
-     updateState();
+ }
 
-  }
-
+ 
  public void updateState() {
   if (state == resting && charge > -50) {
     state = open;
@@ -99,7 +100,7 @@ class Cell {
   else if (state == open && charge > 10) {
     state = inactive;
   }
-  else if (state == inactive && charge < -55) {
+  else if ((state == inactive) && charge < -55) {
     state = resting;
   }
  }
