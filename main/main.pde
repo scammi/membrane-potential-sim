@@ -10,15 +10,15 @@ final String resting = "resting";
 final String open = "open";
 final String inactive = "inactive";
 
-int cols = 100;
-int rows = 100;
-int ch = 10; //cell_height
-int cw = 10; //cell_width
+int cols = 50;
+int rows = 50;
+int ch = 5; //cell_height
+int cw = 5; //cell_width
 int time = 0;
 
 public void setup() {
-  size(1000, 1000);
-  background(150);
+  size(250, 250);
+  background(200);
 
   tissue = new Cell[cols][rows];
 
@@ -45,14 +45,23 @@ public void setup() {
 
 public void draw() {
 
- for (int w = 2; w < (cols-2); w++) {
-   for (int p = 2; p < (rows-2); p++) {
+ for (int w = 0; w < cols; w++) {
+   for (int p = 0; p < rows; p++) {
      tissue[w][p].display();
      tissue[w][p].calculateMembranePotential();
      tissue[w][p].calculateCharge();
      tissue[w][p].calculateAlpha();
 
+
+    // if(w==0 && p==1){
+    //  tissue[w][p].updateState();
+    // }
+    // if ((w==1) && p==1){
+    //   println(tissue[w][p].state, tissue[w][p].Vm);
+    // }
    }
+
+
 
  }
 }

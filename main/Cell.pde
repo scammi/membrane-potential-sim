@@ -34,8 +34,6 @@ class Cell {
  }
 
  public void display(){
-   rect(x, y, w, h);
-
    if (state == resting) {
      fill(255,0,0); //red
    }
@@ -45,7 +43,7 @@ class Cell {
    else if (state == inactive) {
      fill(0,0,255); //blue
    }
-
+   rect(x, y, w, h);  
  }
 
  public void calculateMembranePotential() {
@@ -68,9 +66,13 @@ class Cell {
  // Calculates cell charge influenced by the surrounding cells
  public void calculateCharge(){
 
-  if (colPosition < 1 || colPosition >= (cols-1) || rowPosition < 1 || rowPosition >= (rows-1)) 
-      return; 
+  if (colPosition < 1 || colPosition >= (cols-1) || rowPosition < 1 || rowPosition >= (rows-1)) {
+      this.Vm = -50;
+      this.state = resting;
 
+      println("Position "+colPosition+ " " +rowPosition +" Vm"+ this.Vm + " State: " + this.state);
+      return; 
+  }
   int preCol = colPosition - 1;
   int postCol = colPosition + 1;
   int preRow = rowPosition - 1;
@@ -88,11 +90,11 @@ class Cell {
     //izquierda
     (0.15 * tissue[postCol][rowPosition].Vm);
     
-    updateState();
+   
+  updateState();
 
  }
 
- 
  public void updateState() {
   if (state == resting && charge > -50) {
     state = open;

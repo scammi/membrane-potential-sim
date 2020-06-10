@@ -26,15 +26,15 @@ final String resting = "resting";
 final String open = "open";
 final String inactive = "inactive";
 
-int cols = 100;
-int rows = 100;
-int ch = 10; //cell_height
-int cw = 10; //cell_width
+int cols = 50;
+int rows = 50;
+int ch = 5; //cell_height
+int cw = 5; //cell_width
 int time = 0;
 
 public void setup() {
   
-  background(150);
+  background(200);
 
   tissue = new Cell[cols][rows];
 
@@ -61,14 +61,23 @@ public void setup() {
 
 public void draw() {
 
- for (int w = 2; w < (cols-2); w++) {
-   for (int p = 2; p < (rows-2); p++) {
+ for (int w = 0; w < cols; w++) {
+   for (int p = 0; p < rows; p++) {
      tissue[w][p].display();
      tissue[w][p].calculateMembranePotential();
      tissue[w][p].calculateCharge();
      tissue[w][p].calculateAlpha();
 
+
+    // if(w==0 && p==1){
+    //  tissue[w][p].updateState();
+    // }
+    // if ((w==1) && p==1){
+    //   println(tissue[w][p].state, tissue[w][p].Vm);
+    // }
    }
+
+
 
  }
 }
@@ -82,13 +91,17 @@ class AutoCell extends Cell {
     if (state == resting) {
       alpha = alpha + 0.05f;
     }
+
     else if (state == open) {
       alpha = alpha + (5 - alpha) / 50;
     }
+
     else if (state == inactive) {
       alpha = alpha + (0.05f - alpha) / 50;
+      
     }
-  println(this.state, this.Vm, this.alpha);
+
+  // println(this.state, this.Vm, this.alpha);
  }
 
  //Calculates cell charge influenced by the surrounding cells
@@ -96,7 +109,6 @@ class AutoCell extends Cell {
    this.charge = (tissue[colPosition][rowPosition].Vm);
     
     updateState();
-
  }
 
  
@@ -104,12 +116,15 @@ class AutoCell extends Cell {
   if (state == resting && charge > -40) {
     state = open;
   }
+
   else if (state == open && charge > 35) {
     state = inactive;
   }
+
   else if ((state == inactive) && charge < -55) {
     state = resting;
   }
+
  }
 }
 class Cell {
@@ -148,8 +163,6 @@ class Cell {
  }
 
  public void display(){
-   rect(x, y, w, h);
-
    if (state == resting) {
      fill(255,0,0); //red
    }
@@ -159,7 +172,7 @@ class Cell {
    else if (state == inactive) {
      fill(0,0,255); //blue
    }
-
+   rect(x, y, w, h);  
  }
 
  public void calculateMembranePotential() {
@@ -182,9 +195,13 @@ class Cell {
  // Calculates cell charge influenced by the surrounding cells
  public void calculateCharge(){
 
-  if (colPosition < 1 || colPosition >= (cols-1) || rowPosition < 1 || rowPosition >= (rows-1)) 
-      return; 
+  if (colPosition < 1 || colPosition >= (cols-1) || rowPosition < 1 || rowPosition >= (rows-1)) {
+      this.Vm = -50;
+      this.state = resting;
 
+      println("Position "+colPosition+ " " +rowPosition +" Vm"+ this.Vm + " State: " + this.state);
+      return; 
+  }
   int preCol = colPosition - 1;
   int postCol = colPosition + 1;
   int preRow = rowPosition - 1;
@@ -202,11 +219,11 @@ class Cell {
     //izquierda
     (0.15f * tissue[postCol][rowPosition].Vm);
     
-    updateState();
+   
+  updateState();
 
  }
 
- 
  public void updateState() {
   if (state == resting && charge > -50) {
     state = open;
@@ -250,7 +267,7 @@ public class NullCell extends Cell{
 
  }
 }
-  public void settings() {  size(1000, 1000); }
+  public void settings() {  size(250, 250); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "main" };
     if (passedArgs != null) {
